@@ -15,10 +15,21 @@ public:
         }
         
         int result = 0;
+        
         for(auto f = nums.begin(); f != (nums.end() - 2); f += 1) {
-            for(auto s = f + 1; s != (nums.end() - 1); s += 1) {
-                auto it = std::lower_bound(s + 1, nums.end(), *f + *s);
-                result += (it - 1) - s;
+            auto s = f + 1;
+            auto t = s + 1;
+            while (t != nums.end()) {
+                if (s == t) {
+                    t += 1;
+                    continue;
+                }
+                if ((*f + *s) > *t) {
+                    result += t - s;
+                    t += 1;
+                } else {
+                    s += 1;
+                }
             }
         }
         return result;
